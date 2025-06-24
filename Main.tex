@@ -1,0 +1,482 @@
+%----------- Importação de pacotes-------------------------------
+\documentclass[12pt,a4]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{float}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage[portuguese,brazilian,english]{babel}
+\usepackage[lmargin=3cm,tmargin=3cm,rmargin=2cm,bmargin=2cm]{geometry} %Formato que lembra a ABNT
+\usepackage[T1]{fontenc} %Ajusta o texto que vem de outras fontes
+\usepackage{amsmath,amsthm,amsfonts,amssymb,dsfont,mathtools,blindtext} %pacotes matemáticos
+\usepackage{graphics,xcolor,enumerate}
+\usepackage{fancyhdr}
+\usepackage{booktabs}
+\usepackage{indentfirst}
+\usepackage{animate}
+\usepackage{algorithmic}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows}
+\usepackage[colorlinks=true,urlcolor=red,linkcolor=blue]{hyperref}
+\usepackage{listings}
+\lstdefinestyle{matlabstyle}{
+  language=Matlab,
+  inputencoding=utf8,
+  basicstyle=\ttfamily\footnotesize,
+  numbers=left,
+  numberstyle=\tiny,
+  stepnumber=1,
+  numbersep=5pt,
+  backgroundcolor=\color{white!95!gray},
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  frame=single,
+  rulecolor=\color{black},
+  tabsize=2,
+  captionpos=b,
+  breaklines=true,
+  breakatwhitespace=false,
+  title=\lstname,
+  keywordstyle=\color{blue},
+  commentstyle=\color{red},
+  stringstyle=\color{magenta},
+  morekeywords={matlabFunction, eig}
+}
+
+\lstset{
+  inputencoding=utf8,
+  literate=
+    {á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+    {â}{{\^a}}1 {ê}{{\^e}}1 {ô}{{\^o}}1
+    {ã}{{\~a}}1 {õ}{{\~o}}1
+    {ç}{{\c{c}}}1
+    {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
+    {Â}{{\^A}}1 {Ê}{{\^E}}1 {Ô}{{\^O}}1
+    {Ã}{{\~A}}1 {Õ}{{\~O}}1
+    {Ç}{{\c{C}}}1
+}
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=blue,
+    citecolor=blue
+}
+%----------------------------------------------------------------
+%----------------Configurações do estilo da página---------------
+\pagestyle{fancy} % estilo fancyhdr
+\fancyhf{} % Limpa todos os campos
+
+% Configuração do nome da sessão
+\fancyfoot[L]{\leftmark} % Adiciona o nome da seção atual à esquerda do rodapé
+\fancyfoot[R]{\thepage} % Adiciona o número da página à direita do rodapé
+% Ajuste da linha horizontal do rodapé
+\renewcommand{\footrulewidth}{0.4pt} % Define a espessura da linha
+\renewcommand{\headrulewidth}{0pt} % Remove a linha do cabeçalho
+\setlength{\footskip}{30pt} % Aumenta a distância do rodapé
+%--------------------------------------------------------
+
+\begin{document}
+%-------------------------------------------------------------------
+%Comandos novos criados para a configuração da página
+\begin{titlepage}
+\newcommand{\capaUniversidade}{Universidade Federal do Ceará}
+\newcommand{\capaCentro}{Centro de Tecnologia}
+\newcommand{\capaDepartamento}{Departamento de Engenharia de Teleinformática}
+%\newcommand{\capaRelatorio}{Sistemas de Controle} 
+\newcommand{\capaAtividade}{Sistemas de Controle}
+\newcommand{\capaTitulo}{Project Work: Sistema Hidráulico}
+\newcommand{\capaProfessor}{Dr Michela Mulas}
+\newcommand{\capaAutorA}{Eduarda Gurgel Dutra Guimarães}
+\newcommand{\capaAutorB}{Sezanildo da Silva Paula Filho}
+\newcommand{\capaAutorC}{Jordana Nascimento Farias Braga}
+\newcommand{\capaAutorD}{Mikael Ribeiro Camelo}
+\newcommand{\capaMatriculaA}{512339}
+\newcommand{\capaMatriculaB}{499872}
+\newcommand{\capaMatriculaC}{514442}
+\newcommand{\capaMatriculaD}{509482}
+\newcommand{\capaCidade}{Fortaleza}
+\newcommand{\capaAno}{2025.1}
+\newcommand{\Hrule}{\rule{\linewidth}{0.5mm}}
+%-------------------------------------------------------------------
+
+\center
+\vspace*{-3.9cm}
+\begin{figure}[H] 
+    \centering
+    \includegraphics[width=0.15\columnwidth]{images.png} % Altere o caminho da imagem
+\end{figure}
+
+\large
+
+
+\textbf{\Large\capaUniversidade}\\
+\textbf{\Large\capaCentro}\\
+\textbf{\Large\capaDepartamento}\\
+%\textbf{\textbf{\Large\capaRelatorio}}\\
+\vspace{5cm}
+\textbf{\textbf{\Large\capaAtividade}}\\
+
+
+\vspace{0.5 cm}
+\Hrule\\[0.4cm ]
+{\huge\textbf{\capaTitulo}}\\[0.25cm]
+\Hrule \\[1.0cm]
+\vspace{1.0cm}
+
+\textbf{\large Professora: \capaProfessor}\\
+\vspace{1.5cm}
+\begin{flushleft}
+\textbf{\capaAutorA: \capaMatriculaA} \\
+\textbf{\capaAutorC: \capaMatriculaC} \\
+\textbf{\capaAutorD: \capaMatriculaD} \\
+\textbf{\capaAutorB: \capaMatriculaB} \\
+
+\end{flushleft}
+
+\vfill
+\textbf{\large\capaCidade}\\ \textbf{\capaAno}\\
+
+\end{titlepage}
+%--------------------------------------------------------------
+
+\tableofcontents
+\newpage
+\section{Sistema hidráulico}
+Considere o sistema de dois tanques dispostos como mostrado na Figura:
+\begin{figure}[!hbt]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Imagens/Captura de Tela 2025-06-04 às 21.13.24.png}
+    \caption{Sistema de dois tanques }
+    \label{fig:enter-label}
+\end{figure}
+
+A vazão volumétrica $Q_{\text{in}}$  representa as entradas do sistema, enquanto a variável medida (saída) é o nível de fluido $ h_{2} $ no segundo tanque. As áreas dos dois tanques são $ A_{1} $ e $ A_{2} $, enquanto $a_{1} $ e $ a_{2} $ são as áreas dos orifícios indicadas na Figura~1. O fluido é perfeito (sem tensões de cisalhamento, sem viscosidade, sem condução de calor) e está sujeito apenas à gravidade\textsuperscript{3}. Os tanques estão cheios de água (fluido incompressível) e a pressão externa é constante (pressão atmosférica).
+\subsection{Questão 1}
+
+    Obtenha um modelo de espaço de estados do sistema, onde $ x_1(t) = h_1(t) $ e $ x_2(t) = h_2(t) $ são variáveis de estado, $ u(t) = Q_{\text{in}}(t) $  é a entrada e $  y(t) = h_2(t) $  é a saída.\\
+    \textit{Resolução}
+\subsubsection{Definições e variáveis}
+
+Consideramos o sistema hidráulico de dois tanques ilustrado. As seguintes variáveis são definidas:
+
+\begin{itemize}
+  \item $ x_1(t) = h_1(t) $: altura do fluido no tanque 1 (estado)
+  \item $ x_2(t) = h_2(t) $: altura do fluido no tanque 2 (estado)
+  \item $ u(t) = Q_{in}(t) $: vazão volumétrica de entrada (entrada)
+  \item $ y(t) = h_2(t) = x_2(t) $: saída do sistema
+  \item $ A_1, A_2 $: áreas das seções transversais dos tanques
+  \item $ a_1, a_2 $: áreas dos orifícios de saída
+  \item $ g $: aceleração da gravidade
+\end{itemize}
+\newpage
+\subsubsection{Modelagem do sistema}
+
+A variação de volume em cada tanque pode ser modelada como:
+
+\begin{equation}
+A_1 \dfrac{dh_1}{dt} = Q_{in} - Q_1,
+\end{equation}
+\begin{equation}
+A_2 \dfrac{dh_2}{dt} = Q_1 - Q_2.
+\end{equation}
+
+Com o auxílio  da equação de \textit{Torricelli}, podemos calcular a 
+\textbf{vazão volumétrica, que é dada por:}
+\begin{equation}
+    Q=a\cdot v,
+\end{equation}
+onde $v$ é a velocidade do escoamento e $a$ a área do orifício. Dessa forma, ficamos com:
+\begin{equation}
+Q_1 = a_1 \sqrt{2g h_1}, \quad Q_2 = a_2 \sqrt{2g h_2},
+\end{equation}
+lembrando que $v=\sqrt{2a\Delta s}$ (\textit{Torricelli)}.
+
+Substituindo em $1$ e $2$:
+
+\begin{equation}
+A_1 \frac{dh_1}{dt} = Q_{in} - a_1 \sqrt{2g h_1},
+\end{equation}
+\begin{equation}
+A_2 \frac{dh_2}{dt} = a_1 \sqrt{2g h_1} - a_2 \sqrt{2g h_2}.
+\end{equation}
+
+\subsubsection{Modelo de Espaço de Estados}
+
+Definindo $ x_1(t) = h_1(t) $, $ x_2(t) = h_2(t) $, $ u(t) = Q_{in}(t) $, temos:
+
+\begin{equation}
+\dot{x}_1(t) = \frac{1}{A_1} \left( u(t) - a_1 \sqrt{2g x_1(t)} \right)
+\end{equation}
+\begin{equation}
+\dot{x}_2(t) = \frac{1}{A_2} \left( a_1 \sqrt{2g x_1(t)} - a_2 \sqrt{2g x_2(t)} \right)
+\end{equation}
+\begin{equation}
+y(t) = x_2(t)
+\end{equation}
+
+Este é o modelo em espaço de estados  do sistema hidráulico.
+
+
+    
+    %------------------------------------------------
+\subsection{Questão 2}
+    Dado $ a_1 = 0{,}02\,\text{m}^2 $, $a_2 = 0{,}05\,\text{m}^2 $, $ A_1 = 0{,}5\,\text{m}^2 $ e $ A_2 = 2\,\text{m}^2 $, encontre o estado de equilíbrio $ (\bar{x}_1, \bar{x}_2) $ obtido com uma entrada constante $ \bar{u} = 0{,}5\,\text{m}^3/\text{s} $, aproximando a aceleração da gravidade como $g = 9{,}81\,\text{m}/\text{s}^2 $.\\
+    \textit{Resolução}
+\subsubsection{Condição de Equilíbrio}
+    No estado de equilíbrio, as derivadas temporais são nulas $(\dot{x}_1 = 0, \dot{x}_2 = 0)$. Substituindo nas equações do espaço de estado (7) e (8):
+
+    \subsubsection{Para $\dot{x}_1 = 0:$}
+
+     \begin{equation}
+    0 = \frac{1}{A_1} (\bar{u} - a_1 \sqrt{2g \bar{x}_1} \Longrightarrow \bar{u} = a_1\sqrt{2g \bar{x}_1}
+   \end{equation}
+
+    Resolvendo para $\bar{x}_1:$
+
+     \begin{equation}
+    \bar{x}_1 = \frac{\bar{u}^2}{2ga_1^2} = \frac{0,5^2}{2 \times 9,81 \times 0,005^2} = \frac{0,25}{0,007848} \approx 31,86m
+    \end{equation}
+
+   \subsubsection{Para $\dot{x}_2 = 0:$}
+    
+     \begin{equation}
+    0 = \frac{1}{A_2} (a_1 \sqrt{2g \bar{x}_1} - a_2 \sqrt{2g \bar{x}_2}) \Longrightarrow a_1\sqrt{2g \bar{x}_1} = a_2 \sqrt{2g \bar{x}_2}
+    \end{equation}
+
+    Simplificando e substituindo $a_1\sqrt{2g \bar{x}_1} = \frac{\bar{u}}{a_1}:$
+
+     \begin{equation}
+    \bar{u} =  a_2 \sqrt{2g \bar{x}_2} \Longrightarrow \bar{x}_2 = \frac{\bar{u}^2}{2ga_2^2} = \frac{0,5^2}{2 \times 9,81 \times 0,05^2} = \frac{0,25}{0,04905} \approx 5,10m
+    \end{equation}
+
+    \subsubsection{Resultado Final}
+
+    O estado de equilíbrio é:
+
+     \begin{equation}
+    (\bar{x}_1, \bar{x}_2) \approx (31,86m; 5,10m)
+    \end{equation}
+    
+%------------------------------------------------------------
+\subsection{Questão 3}
+    Determine o sistema linearizado $ (\mathbf{A,B,C,D}) $ em torno do estado de equilíbrio.\\
+    \textit{Resolução}
+
+    \subsubsection*{Ponto de equilíbrio (já obtido na Questão 2)}
+    \begin{equation}
+\bar{x}_1 = 31{,}89 \, \text{m}, \quad \bar{x}_2 = 5{,}10 \, \text{m}
+    \end{equation}
+\subsubsection*{Linearização:}
+Utilizando o método de expansão em série de Taylor de primeira ordem, obtemos:
+
+ \begin{equation}
+\delta \dot{x} = A \delta x + B \delta u, \quad \delta y = C \delta x + D \delta u
+ \end{equation}
+
+\subsubsection*{Matriz A: derivadas parciais de \(\dot{x}_1, \dot{x}_2\) em relação a \(x_1, x_2\)}
+
+\begin{equation}
+A = \begin{bmatrix}
+\dfrac{-a_1 g}{A_1 \sqrt{2g \bar{x}_1}} & 0 \\
+\dfrac{a_1 g}{A_2 \sqrt{2g \bar{x}_1}} & \dfrac{-a_2 g}{A_2 \sqrt{2g \bar{x}_2}}
+\end{bmatrix}
+=
+\begin{bmatrix}
+-0{,}0157 & 0 \\
+0{,}00392 & -0{,}0245
+\end{bmatrix}
+\end{equation}
+
+\subsubsection*{Matriz B: derivadas parciais em relação à entrada \(u\)}
+
+\begin{equation}
+B = \begin{bmatrix}
+\dfrac{1}{A_1} \\
+0
+\end{bmatrix}
+=
+\begin{bmatrix}
+2{,}0 \\
+0
+\end{bmatrix}
+\end{equation}
+
+\subsubsection*{Matriz C: derivadas parciais da saída em relação aos estados}
+
+\begin{equation}
+C = \begin{bmatrix} 0 & 1 \end{bmatrix}
+ \end{equation}
+
+\subsubsection*{Matriz D: derivadas parciais da saída em relação à entrada}
+
+\begin{equation}
+D = \begin{bmatrix} 0 \end{bmatrix}
+ \end{equation}
+
+\subsubsection*{Conclusão}
+
+O sistema linearizado na forma espaço de estados é dado por:
+
+\begin{equation}
+\begin{aligned}
+A &= \begin{bmatrix}
+-0{,}0157 & 0 \\
+0{,}00392 & -0{,}0245
+\end{bmatrix}, \quad
+B = \begin{bmatrix}
+2{,}0 \\
+0
+\end{bmatrix}, \\
+C &= \begin{bmatrix} 0 & 1 \end{bmatrix}, \quad
+D = \begin{bmatrix} 0 \end{bmatrix}
+\end{aligned}
+ \end{equation}
+Este modelo aproxima o comportamento dinâmico do sistema ao redor do ponto de operação \((\bar{x}_1, \bar{x}_2)\) de forma linear, permitindo análises e projetos de controle mais simples.
+%------------------------------------------------------------
+\subsection{Questão 4}
+Na linguagem de programação de sua escolha, simule e compare a resposta dos dois sistemas a um degrau de entrada com amplitude $ A_d $ de sua escolha. Discuta e comente.
+
+
+\subsection*
+
+Para resolver essa questão, foram utilizadas as informações obtidas nas Questões 2 e 3, incluindo o ponto de equilíbrio $(\bar{x}_1, \bar{x}_2) = (31{,}86\,\text{m},\,5{,}10\,\text{m})$ e o sistema linearizado com as seguintes matrizes:
+
+\begin{align*}
+A &= \begin{bmatrix}
+-0{,}0157 & 0 \\
+0{,}0157 & -0{,}0245
+\end{bmatrix}, \quad
+B = \begin{bmatrix}
+2 \\
+0
+\end{bmatrix}, \quad
+C = \begin{bmatrix}
+0 & 1
+\end{bmatrix}, \quad
+D = 0.
+\end{align*}
+
+A simulação foi realizada no \texttt{MATLAB}, considerando:
+\begin{itemize}
+    \item Parâmetros do sistema: $a_1 = 0{,}02\,\text{m}^2$, $a_2 = 0{,}05\,\text{m}^2$, $A_1 = 0{,}5\,\text{m}^2$, $A_2 = 2\,\text{m}^2$, $g = 9{,}81\,\text{m/s}^2$;
+    \item Entrada constante no equilíbrio: $\bar{u} = 0{,}5\,\text{m}^3/\text{s}$;
+    \item Degrau de entrada aplicado: $u(t) = 0{,}6\,\text{m}^3/\text{s}$;
+    \item Tempo de simulação: $t \in [0,\,20]\,\text{s}$.
+\end{itemize}
+
+\subsubsection*{Modelo Não Linear}
+O sistema não linear é descrito pelas equações diferenciais:
+
+\begin{align*}
+\dot{x}_1(t) &= \frac{1}{A_1}\left(u(t) - a_1\sqrt{2g x_1(t)}\right), \\
+\dot{x}_2(t) &= \frac{1}{A_2}\left(a_1\sqrt{2g x_1(t)} - a_2\sqrt{2g x_2(t)}\right).
+\end{align*}
+
+A simulação foi feita com \texttt{ode45} a partir do ponto de equilíbrio $(x_1(0), x_2(0)) = (\bar{x}_1, \bar{x}_2)$.
+
+\subsubsection*{Modelo Linearizado}
+
+O modelo linearizado foi implementado com o sistema em espaço de estados $(A, B, C, D)$ e simulado com a entrada linearizada $u_{\text{lin}}(t) = u(t) - \bar{u}$ e estado inicial nulo $\delta x(0) = 0$.
+
+\subsubsection*{Conclusão}
+
+Os resultados são apresentados nos gráficos, comparando a altura $h_2(t)$ (saída) do modelo linearizado com a do modelo não linear. Observa-se que o modelo linearizado aproxima bem o comportamento do sistema para pequenas variações em torno do ponto de equilíbrio, mas diverge à medida que a entrada se afasta do valor nominal $\bar{u}$.
+
+\begin{itemize}
+    \item O modelo não linear apresenta uma resposta mais realista por considerar a dinâmica exata da vazão (lei de Torricelli).
+    \item O modelo linearizado é útil para análise de estabilidade, controlabilidade e projeto de controladores lineares.
+\end{itemize}
+
+\begin{figure}[!hbt]
+    \centering
+    \includegraphics[width=0.7\linewidth]{Imagens/evolucao_h1_nlinear.png}
+    \caption{Evolução do modelo não linear.}
+    \label{fig:enter-label}
+\end{figure}
+
+\begin{figure}[!hbt]
+    \centering
+    \includegraphics[width=0.7\linewidth]{Imagens/comparacao_h2_modelos.png}
+    \caption{Comparação da saída.}
+    \label{fig:enter-label}
+\end{figure}
+
+\newpage
+\section{Matlab Codes}
+\begin{lstlisting}[style=matlabstyle]
+clc;
+clear;
+close all;
+
+%% PARÂMETROS DO SISTEMA
+g = 9.81;         % gravidade      
+a1 = 0.02;        % área do orifício     
+a2 = 0.05;        %área do orifício    
+A1 = 0.5;         % Área da seção transversal     
+A2 = 2;           % área da seção transversal     
+u0 = 0.5;         %  entrada de equilibrio
+x1_eq = 31.86;    % ponto de equilíbrio
+x2_eq = 5.10;     % ponto de equilíbrio
+
+%% TEMPO DE SIMULAÇÃO
+tspan = [0 20]; % segundos
+u_step = 0.6;   % degrau de entrada (amplitude escolhida maior que u0)
+
+%% 1. MODELO NÃO-LINEAR (ODE)
+nonlinear_ode = @(t, x) [ ...
+    (1/A1)*(u_step - a1*sqrt(2*g*x(1))); ...
+    (1/A2)*(a1*sqrt(2*g*x(1)) - a2*sqrt(2*g*x(2))) ...
+];
+
+x0_nl = [x1_eq; x2_eq]; % estado inicial no ponto de equilíbrio
+[t_nl, x_nl] = ode45(nonlinear_ode, tspan, x0_nl);
+
+%% 2. MODELO LINEARIZADO
+% Matrizes obtidas na questão 3
+A = [-0.0157,  0;
+      0.0157, -0.0245];
+
+B = [2;
+     0];
+
+C = [0 1];
+D = 0;
+
+% Sistema linearizado
+sys_linear = ss(A, B, C, D);
+
+% Estado inicial em zero (devido a linearização em torno do equilibrio)
+x0_lin = [0; 0]; 
+
+% Entrada linearizada: degrau = (u_step - u0)
+u_lin = (u_step - u0) * ones(size(t_nl));
+
+[y_lin, t_lin, x_lin] = lsim(sys_linear, u_lin, t_nl, x0_lin);
+y_nl = x_nl(:,2); % saída do modelo não linear
+
+%% PLOTAGEM
+figure;
+
+subplot(2,1,1);
+plot(t_nl, y_nl, 'b', 'LineWidth', 1.8); hold on;
+plot(t_lin, x2_eq + y_lin, 'r--', 'LineWidth', 1.8);
+grid on;
+xlabel('Tempo (s)');
+ylabel('Altura h_2 (m)');
+title('Resposta dos Sistemas ao Degrau na Entrada');
+legend('Modelo Não-linear', 'Modelo Linearizado');
+
+subplot(2,1,2);
+plot(t_nl, x_nl(:,1), 'k', 'LineWidth', 1.5);
+xlabel('Tempo (s)');
+ylabel('Altura h_1 (m)');
+grid on;
+title('Estado x_1 (h_1) no Modelo Não-linear');
+
+
+
+\end{lstlisting}
+\end{document}
