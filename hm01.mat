@@ -1,0 +1,68 @@
+clc;
+clear;
+close all;
+
+%% PARÂMETROS DO SISTEMA
+g = 9.81;         % gravidade      
+a1 = 0.02;        % área do orifício     
+a2 = 0.05;        %área do orifício    
+A1 = 0.5;         % Área da seção transversal     
+A2 = 2;           % área da seção transversal     
+u0 = 0.5;         %  entrada de equilibrio
+x1_eq = 31.86;    % ponto de equilíbrio
+x2_eq = 5.10;     % ponto de equilíbrio
+
+%% TEMPO DE SIMULAÇÃO
+tspan = [0 20]; % segundos
+u_step = 0.6;   % degrau de entrada (amplitude escolhida maior que u0)
+
+%% 1. MODELO NÃO-LINEAR (ODE)
+nonlinear_ode = @(t, x) [ ...
+    (1/A1)*(u_step - a1*sqrt(2*g*x(1))); ...
+    (1/A2)*(a1*sqrt(2*g*x(1)) - a2*sqrt(2*g*x(2))) ...
+];
+
+x0_nl = [x1_eq; x2_eq]; % estado inicial no ponto de equilíbrio
+[t_nl, x_nl] = ode45(nonlinear_ode, tspan, x0_nl);
+
+%% 2. MODELO LINEARIZADO
+% Matrizes obtidas na questão 3
+A = [-0.0157,  0;
+      0.0157, -0.0245];
+
+B = [2;
+     0];
+
+C = [0 1];
+D = 0;
+
+% Sistema linearizado
+sys_linear = ss(A, B, C, D);
+
+% Estado inicial em zero (devido a linearização em torno do equilibrio)
+x0_lin = [0; 0]; 
+
+% Entrada linearizada: degrau = (u_step - u0)
+u_lin = (u_step - u0) * ones(size(t_nl));
+
+[y_lin, t_lin, x_lin] = lsim(sys_linear, u_lin, t_nl, x0_lin);
+y_nl = x_nl(:,2); % saída do modelo não linear
+
+%% PLOTAGEM
+figure;
+
+subplot(2,1,1);
+plot(t_nl, y_nl, 'b', 'LineWidth', 1.8); hold on;
+plot(t_lin, x2_eq + y_lin, 'r--', 'LineWidth', 1.8);
+grid on;
+xlabel('Tempo (s)');
+ylabel('Altura h_2 (m)');
+title('Resposta dos Sistemas ao Degrau na Entrada');
+legend('Modelo Não-linear', 'Modelo Linearizado');
+
+subplot(2,1,2);
+plot(t_nl, x_nl(:,1), 'k', 'LineWidth', 1.5);
+xlabel('Tempo (s)');
+ylabel('Altura h_1 (m)');
+grid on;
+title('Estado x_1 (h_1) no Modelo Não-linear');
